@@ -1,41 +1,29 @@
+def trailingZeroes(row: list[int]) -> int:
+    try:
+        return row[::-1].index(1)
+    except ValueError:
+        return len(row)
+
+
+def findMatchIdx(rows: list[int], zeroesNeeded: int) -> int:
+    for i, zeroes in enumerate(rows):
+        if zeroes >= zeroesNeeded:
+            return i
+    
+    return -1
+
+
 class Solution:
     def minSwaps(self, grid: List[List[int]]) -> int:
-        n = len(grid)
+        swaps = 0
+        rows = [trailingZeroes(row) for row in grid]
+        for zeroesNeeded in range(len(rows))[::-1]:
+            matchIdx = findMatchIdx(rows, zeroesNeeded)
+            if matchIdx < 0: return -1
+
+            swaps += matchIdx
+            del rows[matchIdx]
         
-        # Step 1: Count trailing zeros for each row
-        trailing_zeros = []
-        for row in grid:
-            count = 0
-            for i in range(n - 1, -1, -1):
-                if row[i] == 0:
-                    count += 1
-                else:
-                    break
-            trailing_zeros.append(count)
-        
-        res = 0
-        # Step 2: Greedy swap to satisfy requirements
-        for i in range(n):
-            # Target: row i needs at least (n - 1 - i) trailing zeros
-            target = n - 1 - i
-            
-            # Find the nearest row that satisfies the requirement
-            found_idx = -1
-            for j in range(i, n):
-                if trailing_zeros[j] >= target:
-                    found_idx = j
-                    break
-            
-            # If no row satisfies the condition, return -1
-            if found_idx == -1:
-                return -1
-            
-            # Move the row from found_idx to i using adjacent swaps
-            # This is essentially one pass of bubble sort logic
-            res += (found_idx - i)
-            
-            # Update the list to reflect the new positions
-            row_to_move = trailing_zeros.pop(found_idx)
-            trailing_zeros.insert(i, row_to_move)
-            
-        return res
+        return swaps
+
+
