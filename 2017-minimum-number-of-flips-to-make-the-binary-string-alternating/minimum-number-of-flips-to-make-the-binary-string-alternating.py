@@ -1,37 +1,31 @@
 class Solution:
     def minFlips(self, s: str) -> int:
         n = len(s)
-        # Double the string to simulate all possible cyclic shifts via sliding window
+        # Double the string to handle all Type-1 cyclic shifts
         s = s + s
         
-        # Target alternating patterns
-        target1 = ""
-        target2 = ""
-        for i in range(len(s)):
-            target1 += "0" if i % 2 == 0 else "1"
-            target2 += "1" if i % 2 == 0 else "0"
-            
-        res = float('inf')
-        diff1, diff2 = 0, 0
-        l = 0
+        # We compare s against two patterns: 0101... and 1010...
+        diff0, diff1 = 0, 0
+        ans = float('inf')
         
-        for r in range(len(s)):
-            # Increment differences if current char doesn't match targets
-            if s[r] != target1[r]:
+        for i in range(len(s)):
+            # Expected characters for the two alternating patterns
+            # Pattern 0: 0, 1, 0, 1... (i % 2)
+            # Pattern 1: 1, 0, 1, 0... (1 - i % 2)
+            if int(s[i]) != (i % 2):
+                diff0 += 1
+            if int(s[i]) != (1 - i % 2):
                 diff1 += 1
-            if s[r] != target2[r]:
-                diff2 += 1
-                
-            # Once window size is n, start tracking results and sliding the left pointer
-            if (r - l + 1) > n:
-                if s[l] != target1[l]:
-                    diff1 -= 1
-                if s[l] != target2[l]:
-                    diff2 -= 1
-                l += 1
             
-            # Update minimum flips when window is exactly length n
-            if (r - l + 1) == n:
-                res = min(res, diff1, diff2)
+            # When the window exceeds size n, remove the element that fell out
+            if i >= n:
+                if int(s[i - n]) != ((i - n) % 2):
+                    diff0 -= 1
+                if int(s[i - n]) != (1 - (i - n) % 2):
+                    diff1 -= 1
+            
+            # Start updating the answer once we have a full window of size n
+            if i >= n - 1:
+                ans = min(ans, diff0, diff1)
                 
-        return res
+        return ans
