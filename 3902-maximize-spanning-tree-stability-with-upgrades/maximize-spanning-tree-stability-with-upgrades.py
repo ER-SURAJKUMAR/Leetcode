@@ -1,68 +1,56 @@
-class DSU:
-    def __init__(self, n):
-        self.parent = list(range(n))
-        self.components = n
-
-    def find(self, i):
-        if self.parent[i] == i:
-            return i
-        self.parent[i] = self.find(self.parent[i])
-        return self.parent[i]
-
-    def union(self, i, j):
-        root_i = self.find(i)
-        root_j = self.find(j)
-        if root_i != root_j:
-            self.parent[root_i] = root_j
-            self.components -= 1
-            return True
-        return False
-
 class Solution:
     def maxStability(self, n: int, edges: list[list[int]], k: int) -> int:
         
-        def can_form(mid):
-            dsu = DSU(n)
-            edges_used = 0
+        def can_achieve(min_val):
+            # Reset DSU state for every binary search check
+            parent = list(range(n))
+            components = n
             
-            # 1. Mandatory Edges (must == 1)
-            # They MUST be >= mid and cannot form a cycle.
+            def find(i):
+                if parent[i] == i: return i
+                parent[i] = find(parent[i])
+                return parent[i]
+
+            def union(i, j):
+                nonlocal components
+                root_i, root_j = find(i), find(j)
+                if root_i != root_j:
+                    parent[root_i] = root_j
+                    components -= 1
+                    return True
+                return False
+
+            # 1. Mandatory Edges: Must be >= min_val and not form cycles
             for u, v, s, must in edges:
                 if must == 1:
-                    if s < mid:
-                        return False
-                    if not dsu.union(u, v):
-                        return False
-                    edges_used += 1
+                    if s < min_val: return False
+                    if not union(u, v): return False
             
-            # 2. Optional Edges that satisfy mid WITHOUT upgrade
+            # 2. Strong Optional: Can reach min_val without upgrade
             for u, v, s, must in edges:
-                if must == 0 and s >= mid:
-                    if dsu.union(u, v):
-                        edges_used += 1
+                if must == 0 and s >= min_val:
+                    union(u, v)
             
-            # 3. Optional Edges that satisfy mid WITH one upgrade
-            upgrades_remaining = k
+            # 3. Weak Optional: Need upgrade to reach min_val
+            upgrades = k
             for u, v, s, must in edges:
-                if must == 0 and s < mid <= 2 * s:
-                    if upgrades_remaining > 0:
-                        if dsu.union(u, v):
-                            upgrades_remaining -= 1
-                            edges_used += 1
+                if must == 0 and s < min_val <= 2 * s:
+                    if upgrades > 0:
+                        if union(u, v):
+                            upgrades -= 1
             
-            # Spanning tree must have n-1 edges and 1 component
-            return dsu.components == 1
+            return components == 1
 
-        # Binary Search for the maximum possible minimum strength
-        low, high = 1, 2 * 10**5
+        # Binary Search Range: 1 to max possible upgraded strength
+        low, high = 1, 200000
         ans = -1
         
         while low <= high:
             mid = (low + high) // 2
-            if can_form(mid):
+            if can_achieve(mid):
                 ans = mid
                 low = mid + 1
             else:
                 high = mid - 1
-                
+        
         return ans
