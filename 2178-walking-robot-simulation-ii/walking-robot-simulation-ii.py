@@ -1,4 +1,3 @@
-
 class Robot:
     def __init__(self, width: int, height: int):
         self.x = 0
@@ -6,38 +5,52 @@ class Robot:
         self.dir = "East"
         self.width = width
         self.height = height
+        self.perim = 2 * (width - 1) + 2 * (height - 1)
 
     def step(self, num: int) -> None:
-        perim = 2 * (self.width - 1) + 2 * (self.height - 1)
-        num %= perim
+        # Reduce to within one perimeter
+        num %= self.perim
+        
+        # If num is 0 after modulo but was originally > 0, 
+        # it means a full lap was completed. 
+        # We must move 'perim' steps to update the direction correctly.
         if num == 0:
-            num = perim
+            num = self.perim
 
         while num > 0:
             if self.dir == "East":
-                maxX = min(self.x + num, self.width - 1)
-                rem  = num - (maxX - self.x)
-                num  = rem
-                if rem == 0: self.x = maxX
-                else:        self.x = maxX; self.dir = "North"
-            elif self.dir == "West":
-                minX = max(self.x - num, 0)
-                rem  = num - (self.x - minX)
-                num  = rem
-                if rem == 0: self.x = minX
-                else:        self.x = minX; self.dir = "South"
+                # Move right as much as possible
+                steps = min(num, self.width - 1 - self.x)
+                self.x += steps
+                num -= steps
+                if num > 0: self.dir = "North"
             elif self.dir == "North":
-                maxY = min(self.y + num, self.height - 1)
-                rem  = num - (maxY - self.y)
-                num  = rem
-                if rem == 0: self.y = maxY
-                else:        self.y = maxY; self.dir = "West"
+                # Move up as much as possible
+                steps = min(num, self.height - 1 - self.y)
+                self.y += steps
+                num -= steps
+                if num > 0: self.dir = "West"
+            elif self.dir == "West":
+                # Move left as much as possible
+                steps = min(num, self.x)
+                self.x -= steps
+                num -= steps
+                if num > 0: self.dir = "South"
             elif self.dir == "South":
-                minY = max(self.y - num, 0)
-                rem  = num - (self.y - minY)
-                num  = rem
-                if rem == 0: self.y = minY
-                else:        self.y = minY; self.dir = "East"
+                # Move down as much as possible
+                steps = min(num, self.y)
+                self.y -= steps
+                num -= steps
+                if num > 0: self.dir = "East"
 
-    def getPos(self): return [self.x, self.y]
-    def getDir(self): return self.dir
+    def getPos(self) -> list[int]:
+        return [self.x, self.y]
+
+    def getDir(self) -> str:
+        # Special case for the very first call before any movement
+        # (Technically handled by the fact that num=0 won't enter the loop)
+        if self.x == 0 and self.y == 0 and self.dir == "East" and self.perim > 0:
+            # We only return "East" at 0,0 if the robot hasn't moved a full lap
+            # This logic is slightly implicit in your simulation.
+            pass
+        return self.dir
