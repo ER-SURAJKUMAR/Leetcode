@@ -1,20 +1,21 @@
 class Solution:
     def minimumEffort(self, tasks: list[list[int]]) -> int:
-        # Sort tasks by the difference between minimum required and actual spent
-        # We want to perform tasks with the largest "buffer" first.
+        # Sort tasks by the difference between minimum and actual (descending)
+        # This prioritizes tasks that require much more energy to start than to finish
         tasks.sort(key=lambda x: x[1] - x[0], reverse=True)
         
-        total_required = 0
-        current_spent = 0
+        min_initial_energy = 0
+        current_energy = 0
         
         for actual, minimum in tasks:
-            # We need to ensure that: 
-            # initial_energy - current_spent >= minimum
-            # Therefore: initial_energy >= current_spent + minimum
-            if total_required < current_spent + minimum:
-                total_required = current_spent + minimum
+            # If current energy is less than what's needed to start the task
+            if current_energy < minimum:
+                # Add the deficit to our initial starting energy
+                min_initial_energy += (minimum - current_energy)
+                # After adding the deficit, our current energy is exactly the 'minimum'
+                current_energy = minimum
             
-            # Update the total energy consumed after finishing the task
-            current_spent += actual
+            # Spend the energy required for the task
+            current_energy -= actual
             
-        return total_required
+        return min_initial_energy
