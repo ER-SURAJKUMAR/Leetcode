@@ -104,4 +104,8 @@
 |  |
 | ------- |
 | [3534-path-existence-queries-in-a-graph-ii](https://github.com/ER-SURAJKUMAR/Leetcode/tree/master/3534-path-existence-queries-in-a-graph-ii) |
+## Enumeration
+|  |
+| ------- |
+| [1291-sequential-digits](https://github.com/ER-SURAJKUMAR/Leetcode/tree/master/1291-sequential-digits) |
 <!---LeetCode Topics End-->
