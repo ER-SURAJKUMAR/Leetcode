@@ -128,6 +128,7 @@
 | [0877-stone-game](https://github.com/ER-SURAJKUMAR/Leetcode/tree/master/0877-stone-game) |
 | [1140-stone-game-ii](https://github.com/ER-SURAJKUMAR/Leetcode/tree/master/1140-stone-game-ii) |
 | [1406-stone-game-iii](https://github.com/ER-SURAJKUMAR/Leetcode/tree/master/1406-stone-game-iii) |
+| [1927-sum-game](https://github.com/ER-SURAJKUMAR/Leetcode/tree/master/1927-sum-game) |
 | [1979-find-greatest-common-divisor-of-array](https://github.com/ER-SURAJKUMAR/Leetcode/tree/master/1979-find-greatest-common-divisor-of-array) |
 | [2029-stone-game-ix](https://github.com/ER-SURAJKUMAR/Leetcode/tree/master/2029-stone-game-ix) |
 | [3014-minimum-number-of-pushes-to-type-word-i](https://github.com/ER-SURAJKUMAR/Leetcode/tree/master/3014-minimum-number-of-pushes-to-type-word-i) |
@@ -149,6 +150,7 @@
 |  |
 | ------- |
 | [1081-smallest-subsequence-of-distinct-characters](https://github.com/ER-SURAJKUMAR/Leetcode/tree/master/1081-smallest-subsequence-of-distinct-characters) |
+| [1927-sum-game](https://github.com/ER-SURAJKUMAR/Leetcode/tree/master/1927-sum-game) |
 | [2213-longest-substring-of-one-repeating-character](https://github.com/ER-SURAJKUMAR/Leetcode/tree/master/2213-longest-substring-of-one-repeating-character) |
 | [3014-minimum-number-of-pushes-to-type-word-i](https://github.com/ER-SURAJKUMAR/Leetcode/tree/master/3014-minimum-number-of-pushes-to-type-word-i) |
 | [3016-minimum-number-of-pushes-to-type-word-ii](https://github.com/ER-SURAJKUMAR/Leetcode/tree/master/3016-minimum-number-of-pushes-to-type-word-ii) |
@@ -191,6 +193,7 @@
 | ------- |
 | [1081-smallest-subsequence-of-distinct-characters](https://github.com/ER-SURAJKUMAR/Leetcode/tree/master/1081-smallest-subsequence-of-distinct-characters) |
 | [1386-cinema-seat-allocation](https://github.com/ER-SURAJKUMAR/Leetcode/tree/master/1386-cinema-seat-allocation) |
+| [1927-sum-game](https://github.com/ER-SURAJKUMAR/Leetcode/tree/master/1927-sum-game) |
 | [2029-stone-game-ix](https://github.com/ER-SURAJKUMAR/Leetcode/tree/master/2029-stone-game-ix) |
 | [3014-minimum-number-of-pushes-to-type-word-i](https://github.com/ER-SURAJKUMAR/Leetcode/tree/master/3014-minimum-number-of-pushes-to-type-word-i) |
 | [3016-minimum-number-of-pushes-to-type-word-ii](https://github.com/ER-SURAJKUMAR/Leetcode/tree/master/3016-minimum-number-of-pushes-to-type-word-ii) |
@@ -270,6 +273,7 @@
 | [0877-stone-game](https://github.com/ER-SURAJKUMAR/Leetcode/tree/master/0877-stone-game) |
 | [1140-stone-game-ii](https://github.com/ER-SURAJKUMAR/Leetcode/tree/master/1140-stone-game-ii) |
 | [1406-stone-game-iii](https://github.com/ER-SURAJKUMAR/Leetcode/tree/master/1406-stone-game-iii) |
+| [1927-sum-game](https://github.com/ER-SURAJKUMAR/Leetcode/tree/master/1927-sum-game) |
 | [2029-stone-game-ix](https://github.com/ER-SURAJKUMAR/Leetcode/tree/master/2029-stone-game-ix) |
 ## Backtracking
 |  |
